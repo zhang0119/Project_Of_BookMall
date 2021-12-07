@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>尚硅谷会员注册页面</title>
+<title>会员注册页面</title>
 <link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
 <style type="text/css">
 	h1 {
@@ -17,7 +17,7 @@
 </head>
 <body>
 		<div id="header">
-				<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+				<%--<img class="logo_img" alt="" src="../../static/img/logo.gif" >--%>
 				<span class="wel_word"></span>
 				<div>
 					<span>欢迎<span class="um_span">韩总</span>光临尚硅谷书城</span>
@@ -29,7 +29,7 @@
 		
 		<div id="main">
 		
-			<h1>注册成功! <a href="../../index.html">转到主页</a></h1>
+			<h1>注册成功! <a href="../../index.jsp">转到主页</a></h1>
 	
 		</div>
 		

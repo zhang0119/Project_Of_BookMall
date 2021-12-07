@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>尚硅谷会员注册页面</title>
+		<title>会员注册页面</title>
 		<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
 		<script type="text/javascript" src="../../static/script/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
@@ -73,8 +73,6 @@
 					//如果用户注册合法必须清理之前的错误信息
 					$("span.errorMsg").text("");
 
-					//阻止浏览器跳转页面
-					return false;
 
 				})
 			})
@@ -92,7 +90,7 @@
 	</head>
 	<body>
 		<div id="login_header">
-			<!--<img class="logo_img" alt="" src="../../static/img/logo.gif" >-->
+
 		</div>
 
 			<div class="login_banner">
@@ -109,7 +107,7 @@
 								<span class="errorMsg"></span>
 							</div>
 							<div class="form">
-								<form action="http://localhost:8080">
+								<form action="http://localhost:8080/book/register" method="post">
 									<label>用户名称：</label>
 									<label for="username"></label><input class="itxt" type="text" placeholder="请输入用户名"
 																		 autocomplete="off" tabindex="1" name="username" id="username"
@@ -135,7 +133,7 @@
 									<br />
 									<br />
 									<label>验证码：</label>
-									<label for="code"></label><input class="itxt" type="text" style="width: 150px;" id="code"/>
+									<label for="code"></label><input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
 									<img alt="" src="../../static/img/code.bmp" style="float: right; margin-right: 40px">
 									<br />
 									<br />
@@ -149,7 +147,7 @@
 			</div>
 		<div id="bottom">
 			<span>
-				尚硅谷书城.Copyright &copy;2015
+				书城.Copyright &copy;2015
 			</span>
 		</div>
 	</body>
