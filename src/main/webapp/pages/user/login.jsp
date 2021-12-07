@@ -2,9 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>尚硅谷会员登录页面</title>
-	<base href="http://localhost:8080/book/">
-<link type="text/css" rel="stylesheet" href="static/css/style.css" >
+<title>登录页面</title>
+
+	<%@include file="../common/head.jsp"%>
+
 </head>
 <body>
 		<div id="login_header">
@@ -26,13 +27,19 @@
 							</div>
 							<div class="msg_cont">
 								<b></b>
-								<span class="errorMsg">请输入用户名和密码</span>
+								<span class="errorMsg">
+									<%--请输入用户名和密码--%>
+									<%=request.getAttribute("msg")==null?"请输入用户名和密码":request.getAttribute("msg")%>
+
+								</span>
 							</div>
 							<div class="form">
 								<form action="login" method="post">
 									<label>用户名称：</label>
 									<label>
-										<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username" />
+										<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username"
+											   <%--这里是回显用户名的--%>
+											value="<%=request.getAttribute("username")==null?"":request.getAttribute("username")%>"/>
 									</label>
 									<br />
 									<br />
@@ -50,10 +57,8 @@
 					</div>
 				</div>
 			</div>
-		<div id="bottom">
-			<span>
-				书城.Copyright &copy;2015
-			</span>
-		</div>
+
+
+		<%@include file="../common/footer.jsp"%>
 </body>
 </html>

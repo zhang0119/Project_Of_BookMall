@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>尚硅谷会员注册页面</title>
-	<base href="http://localhost:8080/book/">
-<link type="text/css" rel="stylesheet" href="static/css/style.css" >
+	<%@include file="../common/head.jsp"%>
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -20,10 +19,10 @@
 		<div id="header">
 
 				<div>
-					<span>欢迎<span class="um_span">韩总</span>光临尚硅谷书城</span>
+					<span>欢迎<span class="um_span">韩总</span>光临书城</span>
 					<a href="order/order.html">我的订单</a>
 					<a href="index.jsp">注销</a>&nbsp;&nbsp;
-					<a href="index.html">返回</a>
+					<a href="index.jsp">返回</a>
 				</div>
 		</div>
 		
@@ -33,10 +32,6 @@
 	
 		</div>
 		
-		<div id="bottom">
-			<span>
-				尚硅谷书城.Copyright &copy;2015
-			</span>
-		</div>
+		<%@include file="../common/footer.jsp"%>
 </body>
 </html>
