@@ -19,7 +19,7 @@ public class BaseDao {
      * update()方法用来执行: insert \ update \  delete 语句
      * @param sql 传入的sql执行语句
      * @param args sql中对应的参数值
-     * @return 如果返回-1，表示执行失败<br/>返回其他表示影响的行数
+     * @return 如果返回-1，表示执行失败<br/>返回对应表的影响的总行数
      */
     public int update(String sql,Object...args){
 

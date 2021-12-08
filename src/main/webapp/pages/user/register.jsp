@@ -102,7 +102,8 @@
 								<h1>注册会员</h1>
 								<span class="errorMsg">
 
-									<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
+									<%--<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>--%>
+									${empty requestScope.msg?"":requestScope.msg}
 								</span>
 							</div>
 							<div class="form">

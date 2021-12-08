@@ -29,7 +29,10 @@
                     <b></b>
                     <span class="errorMsg">
                         <%--请输入用户名和密码--%>
-                        <%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
+                        <%--<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>--%>
+                        <%--这里我们使用更好用的EL表达式来显示数据--%>
+                        <%--同理，后面所有的我们都用EL表达式输出数据--%>
+                        ${empty requestScope.msg?"请输入用户名和密码":requestScope.msg}
 					</span>
                 </div>
                 <div class="form">
@@ -38,7 +41,7 @@
                         <label>
                             <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username"
                             <%--这里是回显用户名的--%>
-                                   value="<%=request.getAttribute("username")==null?"":request.getAttribute("username")%>"/>
+                            value="${empty requestScope.username?"":requestScope.username}"/>
                         </label>
                         <br />
                         <br />
