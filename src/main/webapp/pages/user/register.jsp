@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>会员注册页面</title>
-		<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
-		<script type="text/javascript" src="../../static/script/jquery-1.7.2.js"></script>
+
+		<%@include file="../common/head.jsp"%>
 		<script type="text/javascript">
 
 			//页面加载完成之后
@@ -69,16 +69,12 @@
 						return false;
 					}
 
-
 					//如果用户注册合法必须清理之前的错误信息
 					$("span.errorMsg").text("");
-
 
 				})
 			})
 		</script>
-
-
 
 	<style type="text/css">
 		.login_form{
@@ -104,37 +100,36 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>注册会员</h1>
-								<span class="errorMsg"></span>
+								<span class="errorMsg">
+
+									<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
+								</span>
 							</div>
 							<div class="form">
-								<form action="http://localhost:8080/book/register" method="post">
+								<form action="userServlet?action=register" method="post">
 									<label>用户名称：</label>
 									<label for="username"></label><input class="itxt" type="text" placeholder="请输入用户名"
-																		 autocomplete="off" tabindex="1" name="username" id="username"
-										value="zhang"/>
+																		 autocomplete="off" tabindex="1" name="username" id="username"/>
 									<br />
 									<br />
 									<label>用户密码：</label>
 									<label for="password"></label><input class="itxt" type="password" placeholder="请输入密码"
-																		 autocomplete="off" tabindex="1" name="password" id="password"
-										value="12345"/>
+																		 autocomplete="off" tabindex="1" name="password" id="password"/>
 									<br />
 									<br />
 									<label>确认密码：</label>
 									<label for="repwd"></label><input class="itxt" type="password" placeholder="确认密码"
-																	  autocomplete="off" tabindex="1" name="repwd" id="repwd"
-										value="12345"/>
+																	  autocomplete="off" tabindex="1" name="repwd" id="repwd"/>
 									<br />
 									<br />
 									<label>电子邮件：</label>
 									<label for="email"></label><input class="itxt" type="text" placeholder="请输入邮箱地址"
-																	  autocomplete="off" tabindex="1" name="email" id="email"
-										value="546359148@qq.com"/>
+																	  autocomplete="off" tabindex="1" name="email" id="email"/>
 									<br />
 									<br />
 									<label>验证码：</label>
 									<label for="code"></label><input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
-									<img alt="" src="../../static/img/code.bmp" style="float: right; margin-right: 40px">
+									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />
@@ -145,10 +140,7 @@
 					</div>
 				</div>
 			</div>
-		<div id="bottom">
-			<span>
-				书城.Copyright &copy;2015
-			</span>
-		</div>
+
+		<%@include file="../common/footer.jsp"%>
 	</body>
 </html>
