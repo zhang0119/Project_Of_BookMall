@@ -6,6 +6,7 @@ import org.example.pojo.Book;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BookDaoTest {
 
@@ -26,15 +27,29 @@ public class BookDaoTest {
     @Test
     public void deleteBookByIdTest(){
 
-        int result = bookDao.deleteBookById(41);
+        int result = bookDao.deleteBookById(21);
         System.out.println(result);
     }
 
     @Test
     public void updateBookTest(){
 
-        Book book = new Book(42, "水浒传", new BigDecimal(100), "施耐庵", 100, 10, null);
+        Book book = new Book(3, "小王子", new BigDecimal(100), "安托万·德·圣埃克苏佩里", 15000, 100, null);
         int result = bookDao.updateBook(book);
         System.out.println("result:"+result);
+    }
+
+    @Test
+    public void queryBookByIdTest(){
+        Book book = bookDao.queryBookById(1);
+        System.out.println("book:"+book);
+    }
+
+    @Test
+    public void queryBooksTest(){
+        List<Book> books = bookDao.queryBooks();
+        for (Book book : books) {
+            System.out.println(book);
+        }
     }
 }

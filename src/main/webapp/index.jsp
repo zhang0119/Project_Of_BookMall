@@ -16,7 +16,7 @@
 				<a href="pages/user/login.jsp">登录</a> |
 				<a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
 				<a href="pages/cart/cart.html">购物车</a>
-				<a href="pages/manager/manager.html">后台管理</a>
+				<a href="pages/manager/manager.jsp">后台管理</a>
 			</div>
 	</div>
 	<div id="main">
