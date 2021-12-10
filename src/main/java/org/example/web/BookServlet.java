@@ -50,4 +50,46 @@ public class BookServlet extends BaseServlet {
         //req.getContextPath() 得到的是工程路径
         resp.sendRedirect(req.getContextPath()+"/bookServlet?action=list");
     }
+
+    /*
+        处理删除图书的servlet
+     */
+    protected void deleteBookById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        //这里需要传入想要删除的图书编号id
+        int bookId = WebUtils.parseInt(req.getParameter("id"), 0);
+        //调用 deleteBookById() 方法删除所选图书
+        bookService.deleteBookById(bookId);
+        //重定向到 book_manager.jsp页面
+        //这里注意删除也会有表单重复提价的问题,这里我们用重定向解决问题
+        resp.sendRedirect(req.getContextPath()+"/bookServlet?action=list");
+    }
+
+    /*
+        处理修改图书信息的servlet,这里分两步
+        第一步，通过bookId找到需要修改的图书 即 getBookById
+        第二步，修改图书信息并保存
+        备注：book_edit.jsp 既做添加图书页面也做图书信息修改页面
+     */
+    protected void getBookById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int bookId = WebUtils.parseInt(req.getParameter("id"), 0);
+        Book book = bookService.queryBookById(bookId);
+        //将图书信息保存到request作用域中
+        req.setAttribute("book",book);
+        //请求转发到book_edit.jsp页面中
+        req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req,resp);
+    }
+
+    protected void updateBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //用户直接传入一个book对象
+        Book book = WebUtils.copyParamToBean(req.getParameterMap(), new Book());
+
+        //调用bookService.updateBook(book) 方法修改图书信息
+        bookService.updateBook(book);
+
+        //重定向回到book_manager.jsp页面,并且还要有一个查询的操作
+        //req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
+        req.getRequestDispatcher("bookServlet?action=list").forward(req,resp);
+
+    }
 }

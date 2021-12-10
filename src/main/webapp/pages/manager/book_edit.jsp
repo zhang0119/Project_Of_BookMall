@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,7 +29,18 @@
 
 <div id="main">
     <form action="bookServlet" method="get">
-        <input type="hidden" name="action" value="addBook">
+        <%--这里我们需要判断当前页面提交时是修改图书信息还是添加图书操作--%>
+        <%--
+            如果requestScope.book有值，代表这是修改图书信息操作。反之，这是添加图书操作
+            这里我使用jstl来判断
+        --%>
+            <c:if test="${empty requestScope.book}">
+                <input type="hidden" name="action" value="addBook">
+            </c:if>
+            <c:if test="${not empty requestScope.book}">
+                <input type="hidden" name="action" value="updateBook">
+            </c:if>
+
         <table>
             <tr>
                 <td>名称</td>
@@ -40,11 +52,11 @@
             </tr>
 
             <tr>
-                <td><input name="name" type="text"/></td>
-                <td><input name="price" type="text"/></td>
-                <td><input name="author" type="text"/></td>
-                <td><input name="sales" type="text"/></td>
-                <td><input name="stock" type="text"/></td>
+                <td><input name="name" type="text" value="${requestScope.book.name}"/></td>
+                <td><input name="price" type="text" value="${requestScope.book.price}"/></td>
+                <td><input name="author" type="text" value="${requestScope.book.author}"/></td>
+                <td><input name="sales" type="text" value="${requestScope.book.sales}"/></td>
+                <td><input name="stock" type="text" value="${requestScope.book.stock}"/></td>
 
                 <td><input type="submit" value="提交"/></td>
             </tr>
