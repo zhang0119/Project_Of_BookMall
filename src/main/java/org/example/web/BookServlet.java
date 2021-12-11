@@ -87,6 +87,9 @@ public class BookServlet extends BaseServlet {
         //调用bookService.updateBook(book) 方法修改图书信息
         bookService.updateBook(book);
 
+        //将修改后的图书信息保存到request作用域中，这一步必不可少，否则数据无法修改
+        req.setAttribute("book",book);
+
         //重定向回到book_manager.jsp页面,并且还要有一个查询的操作
         //req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
         req.getRequestDispatcher("bookServlet?action=list").forward(req,resp);

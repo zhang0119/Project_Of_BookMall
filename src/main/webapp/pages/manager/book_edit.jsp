@@ -31,7 +31,8 @@
     <form action="bookServlet" method="get">
         <%--这里我们需要判断当前页面提交时是修改图书信息还是添加图书操作--%>
         <%--
-            如果requestScope.book有值，代表这是修改图书信息操作。反之，这是添加图书操作
+            如果requestScope.book有值，代表这是修改图书信息操作。
+            <br/>反之，这是添加图书操作
             这里我使用jstl来判断
         --%>
             <c:if test="${empty requestScope.book}">
@@ -39,6 +40,7 @@
             </c:if>
             <c:if test="${not empty requestScope.book}">
                 <input type="hidden" name="action" value="updateBook">
+                <input type="hidden" name="id" value="${requestScope.book.id}">
             </c:if>
 
         <table>
