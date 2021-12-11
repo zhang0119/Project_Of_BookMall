@@ -121,47 +121,25 @@
             <c:choose>
                 <%--a.当前页码为前面3个： 1,2,3 页码范围是：1-5--%>
                 <c:when test="${requestScope.page.pageNo<=3}">
-                    <%--<c:forEach begin="1" end="5" var="i">
-                        ${i}
-                    </c:forEach>--%>
-                    <c:forEach begin="1" end="5" var="i">
-                        <%--当前页--%>
-                        <c:if test="${i==requestScope.page.pageNo}">
-                            【${i}】
-                        </c:if>
-                        <%--非当前页--%>
-                        <c:if test="${requestScope.page.pageNo!=i}">
-                            <a href="bookServlet?action=page&pageNo=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
-                        </c:if>
-                    </c:forEach>
+
+                    <c:set var="begin" value="1"/>
+                    <c:set var="end" value="5"/>
+
                 </c:when>
 
                 <%--当前页码为最后3个，假定为 8,9,10 页码范围是: pageTotal-4~pageTotal--%>
                 <c:when test="${requestScope.page.pageNo>requestScope.page.pageTotal-3}">
-                    <c:forEach begin="${requestScope.page.pageTotal-4}" end="${requestScope.page.pageTotal}" var="i">
-                        <%--当前页--%>
-                        <c:if test="${requestScope.page.pageNo==i}">
-                            【${i}】
-                        </c:if>
-                        <%--非当前页--%>
-                        <c:if test="${requestScope.page.pageNo!=i}">
-                            <a href="bookServlet?action=page&pageNo=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
-                        </c:if>
-                    </c:forEach>
+
+                    <c:set var="begin" value="${requestScope.page.pageTotal-4}"/>
+                    <c:set var="end" value="${requestScope.page.pageTotal}"/>
                 </c:when>
 
                 <%--最后一种是中间的情况，例如：4，5，6，7，8  范围是: pageNo-2~pageNo+2  --%>
                 <c:otherwise>
-                    <c:forEach begin="${requestScope.page.pageNo-2}" end="${requestScope.page.pageNo+2}" var="i">
-                        <%--当前页--%>
-                        <c:if test="${requestScope.page.pageNo==i}">
-                            【${i}】
-                        </c:if>
-                        <%--非当前页--%>
-                        <c:if test="${requestScope.page.pageNo!=i}">
-                            <a href="bookServlet?action=page&pageNo=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
-                        </c:if>
-                    </c:forEach>
+
+                    <c:set var="begin" value="${requestScope.page.pageNo-2}"/>
+                    <c:set var="end" value="${requestScope.page.pageNo+2}"/>
+
                 </c:otherwise>
 
             </c:choose>
@@ -169,6 +147,19 @@
         </c:when>
 
     </c:choose>
+
+    <%--这里是我抽取出来的公共代码--%>
+    <c:forEach begin="${begin}" end="${end}" var="i">
+        <%--当前页--%>
+        <c:if test="${requestScope.page.pageNo==i}">
+            【${i}】
+        </c:if>
+        <%--非当前页--%>
+        <c:if test="${requestScope.page.pageNo!=i}">
+            <a href="bookServlet?action=page&pageNo=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
+        </c:if>
+    </c:forEach>
+
 
     <%--同理，下一页我也按照这种思路来处理--%>
     <c:if test="${requestScope.page.pageNo==requestScope.page.pageTotal}">
