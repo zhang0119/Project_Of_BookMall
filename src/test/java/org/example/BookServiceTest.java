@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.pojo.Book;
+import org.example.pojo.Page;
 import org.example.service.BookService;
 import org.example.service.impl.BookServiceImpl;
 import org.junit.Test;
@@ -43,5 +44,16 @@ public class BookServiceTest {
         for (Book book : books) {
             System.out.println(book);
         }
+    }
+
+    /*
+        这个测试方法测试能否获得page对象的
+     */
+    @Test
+    public void pageTest(){
+        //这里要切记： pageNo默认的值最小都要是1，千万不能是0，否则查询失败
+        Page<Book> page = bookService.page(1, 5);
+
+        System.out.println(page);
     }
 }

@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.pojo.Book;
+import org.example.pojo.Page;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface BookService {
         查询全部图书
      */
     List<Book> queryBooks();
+
+    /*
+        分页功能的实现,这里我们获取整个page对象模型
+     */
+    Page<Book> page(Integer pageNo,Integer pageSize);
 }

@@ -31,4 +31,16 @@ public interface BookDao {
      */
     List<Book> queryBooks();
 
+    /*
+        查询图书的总记录数
+        sql : select count(*) from t_book;
+     */
+    Integer queryForPageTotalCount();
+
+    /*
+        查询当前5页数据 (前面我设置了一页放置5条数据)
+        sql : select * from t_book limit begin, pageSize;
+        备注: begin= (pageNo-1)*pageSize
+     */
+    List<Book> queryForItems(int begin,int pageSize);
 }

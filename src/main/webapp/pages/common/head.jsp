@@ -14,6 +14,9 @@
             + "/";
 %>
 
+<%--把basePath放入到 request域对象中--%>
+<%request.setAttribute("basePath",basePath);%>
+
 <%--<%=basePath%>--%>
 
 <base href="<%=basePath%>">

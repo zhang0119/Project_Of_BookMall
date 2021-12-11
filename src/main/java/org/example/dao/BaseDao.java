@@ -79,6 +79,7 @@ public class BaseDao {
 
     /**
      * 执行返回一行一列的 sql语句
+     * 其实就是求想要查询的表的总记录数 totalCount
      * @param sql 将要执行的Sql语句
      * @param args sql对应的参数值
      * @return 返回一行一列的 sql语句

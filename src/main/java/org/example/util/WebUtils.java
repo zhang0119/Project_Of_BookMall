@@ -1,6 +1,7 @@
 package org.example.util;
 
 import org.apache.commons.beanutils.BeanUtils;
+
 import java.util.Map;
 
 public class WebUtils {
@@ -12,7 +13,9 @@ public class WebUtils {
         try {
             return Integer.parseInt(s);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            //这里我将打印异常信息注释掉，因为不注释就会报一个NumberFormatException:null异常信息
+            //注释掉也没事，没有任何影响
+            //e.printStackTrace();
         }
         return defaultValue;
     }

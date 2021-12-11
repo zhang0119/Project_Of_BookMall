@@ -1,6 +1,7 @@
 package org.example.web;
 
 import org.example.pojo.Book;
+import org.example.pojo.Page;
 import org.example.service.BookService;
 import org.example.service.impl.BookServiceImpl;
 import org.example.util.WebUtils;
@@ -95,4 +96,27 @@ public class BookServlet extends BaseServlet {
         req.getRequestDispatcher("bookServlet?action=list").forward(req,resp);
 
     }
+
+    /*
+        这里我们编写处理图书分页的servlet
+     */
+    protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1.先获取用户传过来的 pageNo&pageSize
+        int pageNo = WebUtils.parseInt(req.getParameter("pageNo"), 1);
+        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), 5);
+
+        //2.调用 service层的 page():Page对象
+        Page<Book> page = bookService.page(pageNo, pageSize);
+
+        /*System.out.println("----------------------");
+        System.out.println("page对象:"+page);
+        System.out.println("----------------------");*/
+
+        //3.将page对象保存都request对象中
+        req.setAttribute("page",page);
+
+        //4.请求转发到到book_manager.jsp页面
+        req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
+    }
+
 }

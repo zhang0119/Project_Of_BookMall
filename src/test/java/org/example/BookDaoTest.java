@@ -52,4 +52,21 @@ public class BookDaoTest {
             System.out.println(book);
         }
     }
+
+    @Test
+    public void queryForPageTotalCountTest(){
+        //求总记录数
+        Integer count = bookDao.queryForPageTotalCount();
+        //这里我们得到总记录数
+        System.out.println(count);
+    }
+
+    @Test
+    public void queryForItemsTest(){
+        List<Book> pages = bookDao.queryForItems(1, 5);
+
+        for (Book page : pages) {
+            System.out.println(page);
+        }
+    }
 }

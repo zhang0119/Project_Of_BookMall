@@ -39,4 +39,21 @@ public class BookDaoImpl extends BaseDao implements BookDao {
         String sql = "select * from t_book" ;
         return queryForList(Book.class,sql);
     }
+
+    @Override
+    public Integer queryForPageTotalCount() {
+        String sql = "select count(*) from t_book";
+        //return (Integer) queryForSingleValue(sql);
+        //这里不能直接转成 integer, 先转成 number 在调用 intValue()方法即可
+        Number count= (Number) queryForSingleValue(sql);
+        //返回总记录数
+        return count.intValue();
+    }
+
+    @Override
+    public List<Book> queryForItems(int begin, int pageSize) {
+        //求当前页数据
+        String sql = "select * from t_book limit ? , ? ";
+        return queryForList(Book.class,sql,begin,pageSize);
+    }
 }
