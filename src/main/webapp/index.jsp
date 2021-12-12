@@ -16,7 +16,7 @@
 			<div>
 				<%--<a href="pages/user/login.jsp">登录</a> |
 				<a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
-				<a href="pages/cart/cart.html">购物车</a>
+				<a href="pages/cart/cart.jsp">购物车</a>
 				<a href="pages/manager/manager.jsp">后台管理</a>--%>
 				<%--
 					这里我们需要做一些判断
@@ -29,7 +29,7 @@
 				</c:if>
 
 				<c:if test="${not empty sessionScope.user.username}">
-					<a href="pages/cart/cart.html">购物车</a>
+					<a href="pages/cart/cart.jsp">购物车</a>
 					<a href="pages/manager/manager.jsp">后台管理</a>
 					<a href="userServlet?action=logout">注销</a>&nbsp;&nbsp;
 				</c:if>
