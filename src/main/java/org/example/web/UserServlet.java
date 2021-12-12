@@ -10,9 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 public class UserServlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req,resp);
+    }
+
+
+
+    /*
+       注销用户的servlet
+    */
+    protected void logout(HttpServletRequest req,HttpServletResponse resp) throws IOException {
+        //1.销毁Session 中用户登录的信息(或者销毁Session)
+        req.getSession().invalidate();
+        //2.重定向回到首页
+        resp.sendRedirect(req.getContextPath());
+    }
 
     /*
         处理用户登录的servlet
@@ -37,6 +56,10 @@ public class UserServlet extends BaseServlet {
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req,resp);
         }else{
             //登录成功
+            //保存用户登录的信息到session域中
+            //这是是做用户登录---显示用户名
+            req.getSession().setAttribute("user",loginUser);
+
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
@@ -56,8 +79,15 @@ public class UserServlet extends BaseServlet {
         User user = WebUtils.copyParamToBean(req.getParameterMap(), new User());
 
         //2.检查 验证码是否正确 --这里我们先写死<br/>
+        //12.12这次我们解决这个验证码问题
+        //a.先获取数据库自动生成的验证码
+        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        //b.当我们获得服务器生成的验证码后，要立即删除原来的验证码
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
         //暂时验证码是： funny
-        if("funny".equalsIgnoreCase(code)){
+
+        //这里我们做一个判断，主要是判断服务器生成的验证码是否合法
+        if(token!=null && token.equalsIgnoreCase(code)){
             //3.检查用户名是否合法
             if(userService.existsUsername(username)){
                 //用户名已存在，不合法
@@ -69,6 +99,10 @@ public class UserServlet extends BaseServlet {
                 //用户名可用
                 //调用 service保存到数据库中
                 userService.registerUser(user);
+                //保存新用户的信息到request作用域中,这里我们使用session作用域
+                //session作用域主要用来保存用户登录之后的信息
+                //req.setAttribute("user",user);
+                req.getSession().setAttribute("user",user);
                 //跳到注册成功后的页面 register_success.html
                 req.getRequestDispatcher("/pages/user/register_success.jsp").forward(req,resp);
             }

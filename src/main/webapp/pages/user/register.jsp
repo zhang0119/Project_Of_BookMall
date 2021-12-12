@@ -129,8 +129,8 @@
 									<br />
 									<br />
 									<label>验证码：</label>
-									<label for="code"></label><input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
-									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+									<label for="code"></label><input class="itxt" type="text" style="width: 100px;" name="code" id="code"/>
+									<img alt="" src="${requestScope.basePath}kaptcha.jpg" style="float: right;width: 160px" height="30px">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />

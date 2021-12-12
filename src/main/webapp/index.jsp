@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,10 +14,25 @@
 
 			<span class="wel_word">网上书城</span>
 			<div>
-				<a href="pages/user/login.jsp">登录</a> |
+				<%--<a href="pages/user/login.jsp">登录</a> |
 				<a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
 				<a href="pages/cart/cart.html">购物车</a>
-				<a href="pages/manager/manager.jsp">后台管理</a>
+				<a href="pages/manager/manager.jsp">后台管理</a>--%>
+				<%--
+					这里我们需要做一些判断
+					a.如果用户未登录，那么不用显示购物车和后台管理
+					b.用户如果登录成功，那么不必显示登录和注册的链接
+				--%>
+				<c:if test="${empty sessionScope.user.username}">
+					<a href="pages/user/login.jsp">登录</a> |
+					<a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
+				</c:if>
+
+				<c:if test="${not empty sessionScope.user.username}">
+					<a href="pages/cart/cart.html">购物车</a>
+					<a href="pages/manager/manager.jsp">后台管理</a>
+				</c:if>
+
 			</div>
 	</div>
 	<div id="main">
