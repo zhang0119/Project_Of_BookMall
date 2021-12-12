@@ -31,6 +31,7 @@
 				<c:if test="${not empty sessionScope.user.username}">
 					<a href="pages/cart/cart.html">购物车</a>
 					<a href="pages/manager/manager.jsp">后台管理</a>
+					<a href="userServlet?action=logout">注销</a>&nbsp;&nbsp;
 				</c:if>
 
 			</div>

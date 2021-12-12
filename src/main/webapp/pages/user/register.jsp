@@ -9,6 +9,15 @@
 
 			//页面加载完成之后
 			$(function(){
+
+				//这里实现点击验证码图片可以自由切换验证码
+				$("#codeImg").click(function(){
+					//alert("hello,js!");
+					//这里的this对象表示的就是img的dom对象
+					this.src="http://localhost:8080/book/kaptcha.jpg";
+				});
+
+
 				//给注册绑定单击事件
 				$("#sub_btn").click(function(){
 					//验证用户名：必须由字母，数字下划线组成，并且长度为 5 到 12 位
@@ -130,7 +139,7 @@
 									<br />
 									<label>验证码：</label>
 									<label for="code"></label><input class="itxt" type="text" style="width: 100px;" name="code" id="code"/>
-									<img alt="" src="${requestScope.basePath}kaptcha.jpg" style="float: right;width: 160px" height="30px">
+									<img id="codeImg" alt="" src="${requestScope.basePath}kaptcha.jpg" style="float: right;width: 160px" height="30px">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />
