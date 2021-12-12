@@ -15,8 +15,11 @@ public class CartTest {
         Cart cart = new Cart();
 
         cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
-        cart.addItem(new CartItem(1,"java从入门到精通",3,new BigDecimal(100),new BigDecimal(300)));
-        cart.addItem(new CartItem(2,"c++沉思录",4,new BigDecimal(120),new BigDecimal(480)));
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
 
         System.out.println("cart:"+cart);
     }
@@ -26,13 +29,50 @@ public class CartTest {
         Cart cart = new Cart();
 
         cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
-        cart.addItem(new CartItem(1,"java从入门到精通",3,new BigDecimal(100),new BigDecimal(300)));
-        cart.addItem(new CartItem(2,"c++沉思录",4,new BigDecimal(120),new BigDecimal(480)));
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
 
         System.out.println("未删除之前的购物车:"+cart);
 
         cart.deleteItem(1);
 
         System.out.println("删除之后的购物车:"+cart);
+    }
+
+    /*
+        清空购物车的操作
+     */
+    @Test
+    public void clearTest(){
+        Cart cart = new Cart();
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+
+        System.out.println("清空购物车之前:"+cart);
+        System.out.println("<------------------------------------>");
+        cart.clear();
+        System.out.println("清空购物车之后"+cart);
+    }
+
+    @Test
+    public void updateCount(){
+        Cart cart = new Cart();
+
+        cart.addItem(new CartItem(1,"java从入门到精通",1,new BigDecimal(100),new BigDecimal(100)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+        cart.addItem(new CartItem(2,"c++沉思录",1,new BigDecimal(120),new BigDecimal(120)));
+
+        System.out.println("未修改之前:"+cart);
+
+        System.out.println("<================================================>");
+
+        cart.updateCount(1,3);
+
+        System.out.println("修改数量之后:"+cart);
     }
 }
