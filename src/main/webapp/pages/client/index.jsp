@@ -7,6 +7,24 @@
 
     <%@include file="../common/head.jsp"%>
 
+    <script type="text/javascript">
+
+        $(function(){
+
+            //当用户点击 "加入购物车"按钮后，向clientBookServlet发起请求
+            $(".addCart").click(function(){
+                //alert("hello,js!");
+                //这里我们要拿到图书的id,这里我们要自定义bookId属性，通过这个属性拿到图书的id
+                //使用attr()来获得id的值
+                //this是当前遍历到的dom对象
+                let bookId = $(this).attr("bookId");
+                //(bookId);
+
+                location.href="client/bookServlet?action=addItem&id="+bookId;
+            })
+        })
+    </script>
+
 </head>
 <body>
 
@@ -88,9 +106,15 @@
                         <%--<span class="sp2">1000</span>--%>
                         <span class="sp2">${book.stock}</span>
                     </div>
+
+                    <%--当用户点击这个按钮，要将图书添加到购物车中
+                        这里用js绑定这个按钮，并发起一个请求，这个请求由clientBookServlet处理
+                    --%>
                     <div class="book_add">
-                        <button>加入购物车</button>
+                        <button bookId="${book.id}" class="addCart">加入购物车</button>
                     </div>
+
+
                 </div>
             </div>
 
