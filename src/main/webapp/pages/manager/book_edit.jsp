@@ -28,7 +28,7 @@
 </div>
 
 <div id="main">
-    <form action="bookServlet" method="get">
+    <form action="manager/bookServlet" method="get">
         <%--这里我们需要判断当前页面提交时是修改图书信息还是添加图书操作--%>
         <%--
             如果requestScope.book有值，代表这是修改图书信息操作。

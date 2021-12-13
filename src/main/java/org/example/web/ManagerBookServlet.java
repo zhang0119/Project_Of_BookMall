@@ -10,9 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-public class BookServlet extends BaseServlet {
+public class ManagerBookServlet extends BaseServlet {
 
     private BookService bookService = new BookServiceImpl();
 
@@ -21,16 +20,16 @@ public class BookServlet extends BaseServlet {
         doPost(req,resp);
     }
 
-    protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //1.通过BookService查询所有图书
-        List<Book> books = bookService.queryBooks();
-
-        //2.把所有图书信息保存到request作用域中
-        req.setAttribute("books",books);
-
-        //3.请求转发到 /pages/manager/book_manager.jsp 页面
-        req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
-    }
+//    protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        //1.通过BookService查询所有图书
+//        List<Book> books = bookService.queryBooks();
+//
+//        //2.把所有图书信息保存到request作用域中
+//        req.setAttribute("books",books);
+//
+//        //3.请求转发到 /pages/manager/book_manager.jsp 页面
+//        req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
+//    }
 
     /*
         添加图书的servlet
@@ -103,7 +102,8 @@ public class BookServlet extends BaseServlet {
     protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1.先获取用户传过来的 pageNo&pageSize
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"), 1);
-        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), 5);
+        //这里我们设置 pageSize 默认值是4
+        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), 4);
 
         //2.调用 service层的 page():Page对象
         Page<Book> page = bookService.page(pageNo, pageSize);

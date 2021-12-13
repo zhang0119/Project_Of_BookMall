@@ -10,12 +10,29 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
-
+    /*
+        图书编号
+     */
     private Integer id;
+    /*
+        书名
+     */
     private String name;
+    /*
+        图书单价
+     */
     private BigDecimal price;
+    /*
+        作者
+     */
     private String author;
+    /*
+        销量
+     */
     private Integer sales;
+    /*
+        库存
+     */
     private Integer stock;
     private String imgPath="static/img/default.jpg";
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class Page<T> {
 
     //表示每页显示5条数据
-    private static final Integer PAGE_SIZE = 5;
+    private static final Integer PAGE_SIZE = 4;
 
     //当前页码
     private Integer pageNo;

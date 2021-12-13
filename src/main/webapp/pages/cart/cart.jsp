@@ -33,21 +33,12 @@
             <td><a href="#">删除</a></td>
         </tr>
 
-        <tr>
-            <td>母猪的产后护理</td>
-            <td>1</td>
-            <td>10.00</td>
-            <td>10.00</td>
-            <td><a href="#">删除</a></td>
-        </tr>
+        <c:forEach items="${sessionScope.cart}" var="item">
+            <tr>
+                <td>${item.book}}</td>
+            </tr>
+        </c:forEach>
 
-        <tr>
-            <td>百年孤独</td>
-            <td>1</td>
-            <td>20.00</td>
-            <td>20.00</td>
-            <td><a href="#">删除</a></td>
-        </tr>
 
     </table>
 

@@ -26,7 +26,7 @@
                     它有一个属性叫 href,他可以获取浏览器地址栏中的地址
                     href属性可读，可写
                  */
-                location.href="${requestScope.basePath}bookServlet?action=page&pageNo="+pageNo+"&pageSize=${requestScope.page.pageSize}";
+                location.href="${requestScope.basePath}bookServlet?action=page&pageNo="+pageNo;
             })
         })
     </script>
@@ -61,9 +61,9 @@
 
                 <%--<td><a href="book_edit.jsp">修改</a></td>--%>
                 <%--这里我们需要先查到图书信息，将其展示到页面上，等待我们修改--%>
-                <td><a href="bookServlet?action=getBookById&id=${book.id}">修改</a></td>
+                <td><a href="manager/bookServlet?action=getBookById&id=${book.id}">修改</a></td>
 
-                <td><a class="deleteClass" href="bookServlet?action=deleteBookById&id=${book.id}">删除</a></td>
+                <td><a class="deleteClass" href="manager/bookServlet?action=deleteBookById&id=${book.id}">删除</a></td>
             </tr>
         </c:forEach>
 
@@ -84,7 +84,7 @@
 <%--分页处理--%>
 <div id="page_nav">
 
-    <a href="bookServlet?action=page&pageNo=1&pageSize=5">首页</a>
+    <a href="manager/bookServlet?action=page&pageNo=1">首页</a>
 
 
     <%--上一页是当前页-1--%>
@@ -95,7 +95,7 @@
     </c:if>
 
     <c:if test="${requestScope.page.pageNo!=1}">
-        <a href="bookServlet?action=page&pageNo=${requestScope.page.pageNo-1}&pageSize=${requestScope.page.pageSize}">上一页</a>
+        <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo-1}">上一页</a>
     </c:if>
 
     <c:choose>
@@ -110,7 +110,7 @@
 
                 <%--非当前页--%>
                 <c:if test="${requestScope.page.pageNo!=i}">
-                    <a href="bookServlet?action=page?pageNo=${requestScope.page.pageNo}&pageSize=${requestScope.page.pageSize}">i</a>
+                    <a href="manager/bookServlet?action=page?pageNo=${requestScope.page.pageNo}">i</a>
                 </c:if>
             </c:forEach>
         </c:when>
@@ -156,7 +156,7 @@
         </c:if>
         <%--非当前页--%>
         <c:if test="${requestScope.page.pageNo!=i}">
-            <a href="bookServlet?action=page&pageNo=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
+            <a href="manager/bookServlet?action=page&pageNo=${i}">${i}</a>
         </c:if>
     </c:forEach>
 
@@ -167,11 +167,11 @@
     </c:if>
     <c:if test="${requestScope.page.pageNo!=requestScope.page.pageTotal}">
         <%--上一页是当前页+1--%>
-        <a href="bookServlet?action=page&pageNo=${requestScope.page.pageNo+1}&pageSize=${requestScope.page.pageSize}">下一页</a>
+        <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo+1}">下一页</a>
     </c:if>
 
 
-    <a href="bookServlet?action=page&pageNo=${requestScope.page.pageTotal}&pageSize=${requestScope.page.pageSize}">末页</a>
+    <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
     ，共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录 到第<label for="pn_input"></label><input <%--value="4"--%> name="pn" id="pn_input"/>页
     <input type="button" value="确定">
 </div>

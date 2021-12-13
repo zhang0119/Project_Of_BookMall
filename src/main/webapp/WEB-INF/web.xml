@@ -4,6 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--配置处理前台业务的servlet-->
+    <servlet>
+        <servlet-name>ClientBookServlet</servlet-name>
+        <servlet-class>org.example.web.ClientBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClientBookServlet</servlet-name>
+        <url-pattern>/client/bookServlet</url-pattern>
+    </servlet-mapping>
+
     <!--配置谷歌验证码的servlet-->
     <servlet>
         <servlet-name>KaptchaServlet</servlet-name>
@@ -15,13 +25,14 @@
         <url-pattern>/kaptcha.jpg</url-pattern>
     </servlet-mapping>
 
+    <!--配置处理后台业务的servlet-->
     <servlet>
-        <servlet-name>BookServlet</servlet-name>
-        <servlet-class>org.example.web.BookServlet</servlet-class>
+        <servlet-name>ManagerBookServlet</servlet-name>
+        <servlet-class>org.example.web.ManagerBookServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>BookServlet</servlet-name>
-        <url-pattern>/bookServlet</url-pattern>
+        <servlet-name>ManagerBookServlet</servlet-name>
+        <url-pattern>/manager/bookServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
