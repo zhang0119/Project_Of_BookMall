@@ -36,4 +36,9 @@ public interface BookService {
         分页功能的实现,这里我们获取整个page对象模型
      */
     Page<Book> page(Integer pageNo,Integer pageSize);
+
+    /*
+        根据用户提供的价格区间查询这个范围内的图书
+     */
+    List<Book> bookOfPriceRange(Integer min,Integer max);
 }

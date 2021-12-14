@@ -11,6 +11,15 @@
 
         $(function(){
 
+            //但我们在输入框中输入合法的页码可以跳转到指定的页码
+            $("#endBtn").click(function(){
+
+                //这里我们先拿到用户输入的数字
+                let pageNo = $("#pn_input").val();
+                //把输入发送给后端，完成分页后再把数据发送到前端遍历输出
+                location.href="http://localhost:8080/book/client/bookServlet?action=page&pageNo="+pageNo;
+            });
+
             //当用户点击 "加入购物车"按钮后，向clientBookServlet发起请求
             $(".addCart").click(function(){
                 //alert("hello,js!");
@@ -53,16 +62,22 @@
 <div id="main">
     <div id="book">
         <div class="book_cond">
-            <form action="" method="get">
-                价格：<input id="min" type="text" name="min" value=""> 元 -
-                <input id="max" type="text" name="max" value=""> 元
+
+            <form action="client/bookServlet" method="get">
+                <%--加个隐藏域，设置 action=bookOfPriceRange--%>
+                    <input type="hidden" name="action" value="bookOfPriceRange">
+                价格：<label for="min"></label><input id="min" type="text" name="min" value=""> 元 -
+                <label for="max"></label><input id="max" type="text" name="max" value=""> 元
                 <input type="submit" value="查询" />
             </form>
+
         </div>
         <div style="text-align: center">
-            <span>您的购物车中有3件商品</span>
+            <%--<span>您的购物车中有3件商品</span>--%>
+            <span>您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
             <div>
-                您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
+                <%--您刚刚将<span style="color: red">时间简史</span>加入到了购物车中--%>
+                您刚刚将<span style="color: red">${sessionScope.bookName}</span>加入到了购物车中
             </div>
         </div>
 
@@ -213,8 +228,8 @@
 
 
         <a href="client/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
-        ，共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录 到第<label for="pn_input"></label><input <%--value="4"--%> name="pn" id="pn_input"/>页
-        <input type="button" value="确定">
+        ，共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录 到第<label for="pn_input"></label><input name="pn" id="pn_input"/>页
+        <input id="endBtn" type="button" value="确定">
     </div>
 
 </div>

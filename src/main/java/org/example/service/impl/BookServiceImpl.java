@@ -58,6 +58,12 @@ public class BookServiceImpl implements BookService {
             pageTotal = (pageTotalCount/pageSize)+1;
         }
 
-        return  new Page<Book>(pageNo,pageTotal,pageSize,pageTotalCount,items);
+        return  new Page<Book>(pageNo,pageTotal,pageSize,pageTotalCount,items,null);
+    }
+
+    @Override
+    public List<Book> bookOfPriceRange(Integer min, Integer max) {
+        //这里我们通过峰值求出 总记录数
+        return bookDao.queryForPriceRange(min, max);
     }
 }

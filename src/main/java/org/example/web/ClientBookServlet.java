@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class ClientBookServlet extends BaseServlet {
 
@@ -23,6 +24,44 @@ public class ClientBookServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
     }
+
+    protected void bookOfPriceRange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        int pageNo = WebUtils.parseInt(req.getParameter("pageNo"), 1);
+        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), 4);
+
+        //从客户端接受最大值和最小值
+        int min = WebUtils.parseInt(req.getParameter("min"), 0);
+        //这里我默认价格区间的最大值是一个很大的值，未设置峰值时，默认查询所有图书
+        int max = WebUtils.parseInt(req.getParameter("max"), Integer.MAX_VALUE);
+
+        List<Book> books = bookService.bookOfPriceRange(min, max);
+
+        //我现在想做的就是把 books对象变为 page对象
+        Page<Book> bookPage = WebUtils.copyParamToBean(req.getParameterMap(), new Page<Book>());
+
+        //接下来是对 books 做分页处理
+        Page<Book> page = bookService.page(1, 4);
+
+        page.setItems(books);
+
+        //先把这个items拿到
+        List<Book> items = page.getItems();
+
+        System.out.println("--------------------------");
+        System.out.println("items:"+items);
+        System.out.println("--------------------------");
+
+
+        //将这个books保存到request域对象中
+        req.setAttribute("items",items);
+
+        //请求转发到 /client/index.jsp页面中
+        //req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
+        //这里我们要调用处理分页的方法,不能直接请求转发到目标页面
+        req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
+    }
+
 
     /*我现在要写一个方法，专门处理用户将商品放入购物车的需求*/
     protected void addItem(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -42,6 +81,9 @@ public class ClientBookServlet extends BaseServlet {
         //如果session域对象中没有购物车，那我就创建一个new Cart().
         //如果session中有购物车，那我直接将商品放入即可，不用重复新建对象
         Cart cart = (Cart) req.getSession().getAttribute("cart");
+        //这里我们还有把书名(bookName)也保存到session域对象中，后面要用
+        String bookName = book.getName();
+        req.getSession().setAttribute("bookName",bookName);
         if(cart == null){
             cart = new Cart();
             req.getSession().setAttribute("cart",cart);
@@ -61,7 +103,24 @@ public class ClientBookServlet extends BaseServlet {
 
         //这里我们重定向回购物车页面 cart.jsp页面
         //为防止表单的重复提价，使用重定向方式
-        resp.sendRedirect(req.getContextPath()+"/pages/cart/cart.jsp");
+        //resp.sendRedirect(req.getContextPath()+"/pages/cart/cart.jsp");
+
+        //当我们点击“加入购物车”按钮后，页面是不能跳转的，只有我们点击“购物车”才能跳转到购物车
+        //Referer是HTTP请求Header的一部分，
+        // 当浏览器向Web服务器发送请求的时候，请求头信息一般需要包含Referer。
+        // 该Referer会告诉服务器我是从哪个页面链接过来的，服务器基此可以获得一些信息用于处理。
+        //现在我们重定向到这个referer
+        resp.sendRedirect(req.getHeader("referer"));
+        //这里输出结果是：http://localhost:8080/book/index.jsp
+
+
+    }
+
+    protected void pageForPriceRange(HttpServletRequest req, HttpServletResponse resp){
+
+        Object books = req.getAttribute("books");
+
+
 
     }
 
@@ -80,9 +139,23 @@ public class ClientBookServlet extends BaseServlet {
         //2.调用 service层的 page():Page对象
         Page<Book> page = bookService.page(pageNo, pageSize);
 
-        /*System.out.println("----------------------");
+        //这里我觉得要做一个页码边界处理，防止用户输入不合理的页码
+        //如果 当前页码 > 总页码，回到 最后一页
+        //如果 当前页码 < 1，回到 第一页
+        if(pageNo>page.getPageTotal()){
+            pageNo=page.getPageTotal();
+            page.setPageNo(pageNo);
+            //重新查询一个新的page对象
+            page = bookService.page(pageNo,pageSize);
+        }else if(pageNo<1){
+            //解决当前页码 <1
+            page.setPageNo(1);
+            page = bookService.page(1, pageSize);
+        }
+
+        System.out.println("----------------------");
         System.out.println("page对象:"+page);
-        System.out.println("----------------------");*/
+        System.out.println("----------------------");
 
         //3.将page对象保存都request对象中
         req.setAttribute("page",page);

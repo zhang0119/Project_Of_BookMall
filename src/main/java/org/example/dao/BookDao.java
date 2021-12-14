@@ -43,4 +43,14 @@ public interface BookDao {
         备注: begin= (pageNo-1)*pageSize
      */
     List<Book> queryForItems(int begin,int pageSize);
+
+    /*
+        根据价格区间查询图书
+     */
+    List<Book> queryForPriceRange(Integer min, Integer max);
+
+    /*
+        根据价格区间查询总记录数
+     */
+    Integer queryCountByPriceRange(Integer min,Integer max);
 }

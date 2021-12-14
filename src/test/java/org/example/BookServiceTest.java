@@ -56,4 +56,12 @@ public class BookServiceTest {
 
         System.out.println(page);
     }
+
+    @Test
+    public void queryForPriceRangeTest(){
+        List<Book> books = bookService.bookOfPriceRange(10, 100);
+        for (Book book : books) {
+            System.out.println(book);
+        }
+    }
 }
