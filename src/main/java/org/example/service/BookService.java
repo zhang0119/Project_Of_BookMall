@@ -40,5 +40,5 @@ public interface BookService {
     /*
         根据用户提供的价格区间查询这个范围内的图书
      */
-    List<Book> bookOfPriceRange(Integer min,Integer max);
+    Page<Book> bookByPrice(Integer pageNo,Integer pageSize,Integer min,Integer max);
 }

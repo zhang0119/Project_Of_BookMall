@@ -38,7 +38,7 @@ public interface BookDao {
     Integer queryForPageTotalCount();
 
     /*
-        查询当前5页数据 (前面我设置了一页放置5条数据)
+        查询当前4页数据 (前面我设置了一页放置4条数据)
         sql : select * from t_book limit begin, pageSize;
         备注: begin= (pageNo-1)*pageSize
      */
@@ -47,10 +47,10 @@ public interface BookDao {
     /*
         根据价格区间查询图书
      */
-    List<Book> queryForPriceRange(Integer min, Integer max);
+    List<Book> queryForPriceRange(Integer min, Integer max,Integer begin,Integer pageSize);
 
     /*
         根据价格区间查询总记录数
      */
-    Integer queryCountByPriceRange(Integer min,Integer max);
+    Integer queryCountForPriceRange(Integer min,Integer max);
 }

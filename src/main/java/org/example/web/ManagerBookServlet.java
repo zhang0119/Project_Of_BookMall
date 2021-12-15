@@ -108,6 +108,8 @@ public class ManagerBookServlet extends BaseServlet {
         //2.调用 service层的 page():Page对象
         Page<Book> page = bookService.page(pageNo, pageSize);
 
+        page.setUrl("manager/bookServlet?action=page");
+
         /*System.out.println("----------------------");
         System.out.println("page对象:"+page);
         System.out.println("----------------------");*/

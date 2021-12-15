@@ -58,10 +58,8 @@ public class BookServiceTest {
     }
 
     @Test
-    public void queryForPriceRangeTest(){
-        List<Book> books = bookService.bookOfPriceRange(10, 100);
-        for (Book book : books) {
-            System.out.println(book);
-        }
+    public void bookByPriceTest(){
+        Page<Book> bookPage = bookService.bookByPrice(2, 4, 10, 50);
+        System.out.println("bookPage:"+bookPage);
     }
 }

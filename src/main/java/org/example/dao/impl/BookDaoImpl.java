@@ -57,20 +57,33 @@ public class BookDaoImpl extends BaseDao implements BookDao {
         return queryForList(Book.class,sql,begin,pageSize);
     }
 
+    /**
+     * 这个方法的作用是找到当前页数据
+     * @param min 最小的价格
+     * @param max 最大的价格
+     * @return 两个价格之间的图书信息
+     */
     @Override
-    public List<Book> queryForPriceRange(Integer min, Integer max) {
-        /*select * from t_book where price between 0 and 100 order by price;*/
-        String sql = "select * from t_book where price between ? and ? order by price";
+    public List<Book> queryForPriceRange(Integer min, Integer max,Integer begin,Integer pageSize) {
 
-        return queryForList(Book.class,sql,min,max);
+        String sql = "select * from t_book where price between ? and ? order by price limit ? , ?  ";
+
+        return queryForList(Book.class,sql,min,max,begin,pageSize);
     }
 
+    /**
+     * 根据价格区间查找总记录数
+     * @param min 最小价格
+     * @param max 最大价格
+     * @return 符合条件的总记录数
+     */
     @Override
-    public Integer queryCountByPriceRange(Integer min, Integer max) {
+    public Integer queryCountForPriceRange(Integer min, Integer max) {
         String sql = "select count(*) from t_book where price between ? and ?";
 
-        Number count = (Number)queryForSingleValue(sql,min,max);
+        Number counts = (Number) queryForSingleValue(sql, min, max);
 
-        return count.intValue();
+        return counts.intValue();
     }
+
 }

@@ -70,20 +70,4 @@ public class BookDaoTest {
         }
     }
 
-    //测试价格区间
-    @Test
-    public void queryForPriceRangeTest(){
-        List<Book> books = bookDao.queryForPriceRange(10, 100);
-        for (Book book : books) {
-            System.out.println(book);
-        }
-    }
-
-    @Test
-    public void queryCountByPriceRangeTest(){
-
-        Integer counts = bookDao.queryCountByPriceRange(10, 50);
-
-        System.out.println(counts);
-    }
 }

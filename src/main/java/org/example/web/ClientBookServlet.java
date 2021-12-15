@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class ClientBookServlet extends BaseServlet {
 
@@ -35,30 +34,28 @@ public class ClientBookServlet extends BaseServlet {
         //这里我默认价格区间的最大值是一个很大的值，未设置峰值时，默认查询所有图书
         int max = WebUtils.parseInt(req.getParameter("max"), Integer.MAX_VALUE);
 
-        List<Book> books = bookService.bookOfPriceRange(min, max);
+        //调用 bookOfPriceRange()方法得到我们想要的 page对象
+        Page<Book> page = bookService.bookByPrice(pageNo,pageSize,min, max);
 
-        //我现在想做的就是把 books对象变为 page对象
-        Page<Book> bookPage = WebUtils.copyParamToBean(req.getParameterMap(), new Page<Book>());
+        //在这里设置url即可,这里必须携带参数min和max
+        //page.setUrl("client/bookServlet?action=bookOfPriceRange");
 
-        //接下来是对 books 做分页处理
-        Page<Book> page = bookService.page(1, 4);
+        StringBuilder sb = new StringBuilder("client/bookServlet?action=bookOfPriceRange");
 
-        page.setItems(books);
+        if(req.getParameter("min")!=null){
+            sb.append("&min=").append(req.getParameter("min"));
+        }
 
-        //先把这个items拿到
-        List<Book> items = page.getItems();
+        if(req.getParameter("max")!=null){
+            sb.append("&max=").append(req.getParameter("max"));
+        }
 
-        System.out.println("--------------------------");
-        System.out.println("items:"+items);
-        System.out.println("--------------------------");
+        page.setUrl(sb.toString());
 
-
-        //将这个books保存到request域对象中
-        req.setAttribute("items",items);
+        //把这个page对象保存到 request 对象中
+        req.setAttribute("page",page);
 
         //请求转发到 /client/index.jsp页面中
-        //req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
-        //这里我们要调用处理分页的方法,不能直接请求转发到目标页面
         req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
     }
 
@@ -120,8 +117,6 @@ public class ClientBookServlet extends BaseServlet {
 
         Object books = req.getAttribute("books");
 
-
-
     }
 
     /**
@@ -156,6 +151,8 @@ public class ClientBookServlet extends BaseServlet {
         System.out.println("----------------------");
         System.out.println("page对象:"+page);
         System.out.println("----------------------");
+
+        page.setUrl("client/bookServlet?action=page");
 
         //3.将page对象保存都request对象中
         req.setAttribute("page",page);
