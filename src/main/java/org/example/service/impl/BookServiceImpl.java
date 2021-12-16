@@ -91,6 +91,7 @@ public class BookServiceImpl implements BookService {
         //获得 items 当前页数据
         //计算begin
         Integer begin = (pageNo-1)*pageSize;
+        //这里我们是查出当前页数据，共计是4条，min和max限制了查找的价格区间，begin和pageSize是固定了查找的初始页码和每页显示的数量
         List<Book> items = bookDao.queryForPriceRange(min, max,begin,pageSize);
         page.setItems(items);
 
