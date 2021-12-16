@@ -24,6 +24,55 @@ public class ClientBookServlet extends BaseServlet {
         doPost(req,resp);
     }
 
+    /**
+     * 清空购物车
+     * @param req 请求对象
+     * @param resp 相应对象
+     * @throws IOException 抛出异常对象
+     */
+    protected void clearCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        //1.从session中获得购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        //2.直接调用cart 对象里面的clear()方法,即清空购物车
+        cart.clear();
+
+        //3.重定向返回原页面
+        resp.sendRedirect(req.getContextPath()+"/pages/cart/cart.jsp");
+    }
+
+    /**
+     * 根据id删除购物车中的图书
+     * @param req 请求对象
+     * @param resp 相应对象
+     * @throws IOException 抛出IO异常
+     */
+    protected void deleteItemInCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        /*
+            思路：获取session中存储的cart.items，找到对应图书的id,然后删除即可.
+         */
+        //1.获得用户想要删除的book的id
+        int id = WebUtils.parseInt(req.getParameter("id"), 0);
+
+        //通知session中删除指定id的图书
+        //先得到购物陈对象,这里我们最好判断 cart对象是否为空
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        if(cart!=null){
+            //根据id删除购物车中指定的图书
+            cart.deleteItem(id);
+        }
+
+        //重定向回到cart.jsp页面
+        resp.sendRedirect(req.getContextPath()+"/pages/cart/cart.jsp");
+    }
+
+    /**
+     * 查询价格区间内的所有图书并实现分页
+     * @param req 请求对象
+     * @param resp 相应对象
+     * @throws ServletException 处理的异常1
+     * @throws IOException 处理的异常2
+     */
     protected void bookOfPriceRange(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"), 1);

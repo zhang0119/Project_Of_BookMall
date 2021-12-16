@@ -66,20 +66,29 @@
             <form action="client/bookServlet" method="get">
                 <%--加个隐藏域，设置 action=bookOfPriceRange--%>
                     <input type="hidden" name="action" value="bookOfPriceRange">
-                价格：<label for="min"></label><input id="min" type="text" name="min" value=""> 元 -
-                <label for="max"></label><input id="max" type="text" name="max" value=""> 元
+                    <%--这里我们要做的是价格区间的回显,这里我们使用el 表达式获取地址栏上价格区间值--%>
+                价格：<label for="min"></label><input id="min" type="text" name="min" value="${param.min}"> 元 -
+                <label for="max"></label><input id="max" type="text" name="max" value="${param.max}"> 元
                 <input type="submit" value="查询" />
             </form>
 
         </div>
-        <div style="text-align: center">
-            <%--<span>您的购物车中有3件商品</span>--%>
-            <span>您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
-            <div>
-                <%--您刚刚将<span style="color: red">时间简史</span>加入到了购物车中--%>
-                您刚刚将<span style="color: red">${sessionScope.bookName}</span>加入到了购物车中
-            </div>
-        </div>
+
+        <%--以下代码只有我们登录成功才会显示，这里做个判断--%>
+        <c:if test="${not empty sessionScope.user}">
+            <%--如果购物车为空，以下的代码也不显示，即使我们已完成登录--%>
+            <c:if test="${not empty sessionScope.cart.items}">
+                <div style="text-align: center">
+                        <%--<span>您的购物车中有3件商品</span>--%>
+                    <span>您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
+                    <div>
+                            <%--您刚刚将<span style="color: red">时间简史</span>加入到了购物车中--%>
+                        您刚刚将<span style="color: red">${sessionScope.bookName}</span>加入到了购物车中
+                    </div>
+                </div>
+            </c:if>
+        </c:if>
+
 
 
 
