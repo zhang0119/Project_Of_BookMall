@@ -66,7 +66,7 @@
             <span class="cart_span">购物车中共有<span class="b_count">${sessionScope.cart.totalCount}</span>件商品</span>
             <span class="cart_span">总金额<span class="b_price">${sessionScope.cart.totalPrice}</span>元</span>
             <span class="cart_span"><a href="client/bookServlet?action=clearCart" id="clearCart">清空购物车</a></span>
-            <span class="cart_span"><a href="pages/cart/checkout.html">去结账</a></span>
+            <span class="cart_span"><a href="pages/cart/checkout.jsp">去结账</a></span>
         </c:if>
 
         <%--如果购物车为空，我们应该引导用户去购物，给一个去首页的连接--%>

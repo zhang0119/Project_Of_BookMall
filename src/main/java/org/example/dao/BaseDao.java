@@ -16,6 +16,26 @@ public class BaseDao {
     private QueryRunner queryRunner = new QueryRunner();
 
     /**
+     * 执行 insert插入操作
+     * @param sql 执行的sql语句
+     * @param args 用户传入的数据
+     * @return 返回影响的行数</br>返回-1表示插入数据失败
+     */
+    public int execute(String sql,Object...args){
+
+        Connection conn = JdbcUtils.getConnection();
+
+        try {
+            return queryRunner.execute(conn,sql,args);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            JdbcUtils.close(conn);
+        }
+        return -1;
+    }
+
+    /**
      * update()方法用来执行: insert \ update \  delete 语句
      * @param sql 传入的sql执行语句
      * @param args sql中对应的参数值

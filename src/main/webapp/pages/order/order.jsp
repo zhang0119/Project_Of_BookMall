@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -14,14 +15,9 @@
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<%--<img class="logo_img" alt="" src="../../static/img/logo.gif" >--%>
 			<span class="wel_word">我的订单</span>
-			<div>
-				<span>欢迎<span class="um_span">韩总</span>光临尚硅谷书城</span>
-				<a href="../order/order.html">我的订单</a>
-				<a href="../../index.jsp">注销</a>&nbsp;&nbsp;
-				<a href="../../index.jsp">返回</a>
-			</div>
+			<%@include file="../common/login_success_menu.jsp"%>
 	</div>
 	
 	<div id="main">
@@ -58,10 +54,6 @@
 	
 	</div>
 	
-	<div id="bottom">
-		<span>
-			尚硅谷书城.Copyright &copy;2015
-		</span>
-	</div>
+	<%@include file="../common/footer.jsp"%>
 </body>
 </html>
