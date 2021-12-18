@@ -4,6 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--配置处理订单系统的servlet-->
+    <servlet>
+        <servlet-name>ClientOrderServlet</servlet-name>
+        <servlet-class>org.example.web.ClientOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClientOrderServlet</servlet-name>
+        <url-pattern>/client/orderServlet</url-pattern>
+    </servlet-mapping>
+
     <!--配置处理前台业务的servlet-->
     <servlet>
         <servlet-name>ClientBookServlet</servlet-name>

@@ -24,6 +24,7 @@ public class ClientBookServlet extends BaseServlet {
         doPost(req,resp);
     }
 
+
     /**
      * 清空购物车
      * @param req 请求对象
@@ -140,10 +141,10 @@ public class ClientBookServlet extends BaseServlet {
         cart.addItem(cartItem);
 
         //测试代码
-        System.out.println("-----------------------------");
+        /*System.out.println("-----------------------------");
         System.out.println("cartItem:"+cartItem);
         System.out.println("cart:"+cart);
-        System.out.println("-----------------------------");
+        System.out.println("-----------------------------");*/
 
 
 
@@ -197,9 +198,9 @@ public class ClientBookServlet extends BaseServlet {
             page = bookService.page(1, pageSize);
         }
 
-        System.out.println("----------------------");
+        /*System.out.println("----------------------");
         System.out.println("page对象:"+page);
-        System.out.println("----------------------");
+        System.out.println("----------------------");*/
 
         page.setUrl("client/bookServlet?action=page");
 

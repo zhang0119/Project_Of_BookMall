@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>我的订单</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<%@include file="../common/head.jsp"%>
 <style type="text/css">
 	h1 {
 		text-align: center;

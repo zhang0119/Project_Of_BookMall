@@ -17,6 +17,16 @@ public class OrderDaoTest {
 
         Order order = new Order("123456789",new Date(),new BigDecimal(99),0,1);
 
-        orderDao.saveOrder(order);
+        int i = orderDao.saveOrder(order);
+
+        System.out.println(i!=-1?"保存订单成功":"保存订单失败");
     }
+
+    /*@Test
+    public void queryOrder(){
+
+        List<Order> orders = orderDao.queryOrder();
+
+        System.out.println(orders);
+    }*/
 }

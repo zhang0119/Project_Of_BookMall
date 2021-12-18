@@ -7,7 +7,7 @@ import java.util.Map;
 public class Cart {
 
     /*
-        商品总金额
+        商品总数量
      */
     private Integer totalCount;
 
