@@ -4,6 +4,24 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--配置Filter过滤器-->
+    <filter>
+        <filter-name>ManagerFilter</filter-name>
+        <filter-class>org.example.filter.ManagerFilter</filter-class>
+    </filter>
+    <!--filter-mapping配置Filter过滤器的拦截路径-->
+    <filter-mapping>
+        <!--filter-name 表示当前的拦截路径给哪个filter使用-->
+        <filter-name>ManagerFilter</filter-name>
+        <!--url-pattern 配置拦截路径
+            / 表示请求的地址为 http://ip:port/工程路径/
+        -->
+        <url-pattern>/manager/*</url-pattern>
+        <url-pattern>/pages/manager/*</url-pattern>
+        <url-pattern>/manager/bookServlet</url-pattern>
+    </filter-mapping>
+
+
     <!--配置处理订单系统的servlet-->
     <servlet>
         <servlet-name>ClientOrderServlet</servlet-name>

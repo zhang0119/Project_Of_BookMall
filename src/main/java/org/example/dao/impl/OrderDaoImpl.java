@@ -15,11 +15,4 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     }
 
-    /*@Override
-    public List<Order> queryOrder() {
-
-        String sql = "select * from t_order";
-
-        return queryForList(Order.class,sql);
-    }*/
 }
