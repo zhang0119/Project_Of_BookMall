@@ -23,16 +23,16 @@ public class BaseDao {
      */
     public int execute(String sql,Object...args){
 
+        System.out.println("BaseDao 程序在["+Thread.currentThread().getName()+"]中");
+
         Connection conn = JdbcUtils.getConnection();
 
         try {
             return queryRunner.execute(conn,sql,args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return -1;
     }
 
     /**
@@ -43,16 +43,16 @@ public class BaseDao {
      */
     public int update(String sql,Object...args){
 
+        System.out.println("BaseDao 程序在["+Thread.currentThread().getName()+"]中");
+
         Connection conn = JdbcUtils.getConnection();
 
         try {
             return queryRunner.update(conn,sql,args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return -1;
     }
 
     /**
@@ -70,10 +70,8 @@ public class BaseDao {
             return queryRunner.query(conn,sql,new BeanHandler<T>(type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -91,10 +89,8 @@ public class BaseDao {
             return queryRunner.query(conn,sql,new BeanListHandler<T>(type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -112,10 +108,8 @@ public class BaseDao {
             return queryRunner.query(conn,sql,new ScalarHandler(),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 }

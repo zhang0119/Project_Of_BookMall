@@ -24,6 +24,29 @@ public class ClientBookServlet extends BaseServlet {
         doPost(req,resp);
     }
 
+    /**
+     * 修改购物车里面商品的数量
+     * @param req 请求对象
+     * @param resp 相应对象
+     */
+    protected void updateCount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //用户必须传入bookCount & bookId
+        int bookId = WebUtils.parseInt(req.getParameter("bookId"), 0);
+        int bookCount = WebUtils.parseInt(req.getParameter("bookCount"),0);
+
+        String referer = null;
+        //拿到购物车对象
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        if(cart!=null){
+            cart.updateCount(bookId,bookCount);
+            //回到原来的页面
+            referer = req.getHeader("referer");
+        }
+        //重定向回到原来的购物车页面
+        //System.out.println(referer);
+        resp.sendRedirect(referer);
+    }
+
 
     /**
      * 清空购物车
@@ -160,12 +183,6 @@ public class ClientBookServlet extends BaseServlet {
         resp.sendRedirect(req.getHeader("referer"));
         //这里输出结果是：http://localhost:8080/book/index.jsp
 
-
-    }
-
-    protected void pageForPriceRange(HttpServletRequest req, HttpServletResponse resp){
-
-        Object books = req.getAttribute("books");
 
     }
 

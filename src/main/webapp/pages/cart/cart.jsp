@@ -11,6 +11,32 @@
 
         $(function(){
 
+            //=========================2021.12.18 晚================================================
+
+            //用户可以修改cart.jsp页面里面商品的数量,这里我们使用change比使用blur事件更好
+            $(".count").change(function(){
+                //先获取图书id
+                let bookId=$(this).attr("bookId");
+                //再获取图书名字
+                let bookName=$(this).parent().parent().parent().find("td:first").text();
+                //获取用户修改后的值
+                let bookCount = this.value;
+                //alert(count);
+
+                if(confirm("你确定要将["+bookName+"]的数量修改为"+bookCount+"吗?")){
+                    //确定修改，这里我们需要一个servlet去处理这个修改
+                    location.href="http://localhost:8080/book/client/bookServlet?action=updateCount&bookId="+bookId+"&bookCount="+bookCount;
+                }else{
+                    //不想修改还用默认值
+                    this.value=this.defaultValue;
+                }
+                
+                //================2021.12.18 晚=========================================================
+
+                return false;
+                //return confirm("你确定要将"+bookName+"数量修改为"+)
+            });
+
             //用户清空购物车加入提醒功能
             $("#clearCart").click(function(){
 
@@ -50,7 +76,11 @@
         <c:forEach items="${sessionScope.cart.items}" var="cartItem">
             <tr>
                 <td>${cartItem.value.name}</td>
-                <td>${cartItem.value.count}</td>
+                <td>
+                    <label>
+                        <input bookId="${cartItem.value.id}" class="count" style="width: 40px" type="text" name="count" value="${cartItem.value.count}">
+                    </label>
+                </td>
                 <td>${cartItem.value.price}</td>
                 <td>${cartItem.value.totalPrice}</td>
                 <td><a href="client/bookServlet?action=deleteItemInCart&id=${cartItem.value.id}" class="deleteBook">删除</a></td>
