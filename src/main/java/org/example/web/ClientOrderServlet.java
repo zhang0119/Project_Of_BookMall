@@ -1,6 +1,7 @@
 package org.example.web;
 
 import org.example.pojo.Cart;
+import org.example.pojo.Order;
 import org.example.pojo.User;
 import org.example.service.OrderService;
 import org.example.service.impl.OrderServiceImpl;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class ClientOrderServlet extends BaseServlet {
 
@@ -17,6 +19,16 @@ public class ClientOrderServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
+    }
+
+    /**
+     * 这个方法是处理将订单信息遍历到order.jsp页面上
+     * 仅仅做一个查询操作
+     * @param req 请求对象
+     * @param resp 相应对象
+     */
+    protected void queryOrder(HttpServletRequest req, HttpServletResponse resp){
+        List<Order> orderList= orderService.queryOrder();
     }
 
 

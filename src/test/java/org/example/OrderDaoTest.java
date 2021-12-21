@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OrderDaoTest {
 
@@ -22,11 +23,14 @@ public class OrderDaoTest {
         System.out.println(i!=-1?"保存订单成功":"保存订单失败");
     }
 
-    /*@Test
-    public void queryOrder(){
+    @Test
+    public void queryOrderTest(){
 
         List<Order> orders = orderDao.queryOrder();
 
-        System.out.println(orders);
-    }*/
+        for (Order order : orders) {
+            System.out.println(order);
+        }
+
+    }
 }

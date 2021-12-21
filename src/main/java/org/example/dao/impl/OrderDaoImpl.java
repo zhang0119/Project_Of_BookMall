@@ -4,6 +4,8 @@ import org.example.dao.BaseDao;
 import org.example.dao.OrderDao;
 import org.example.pojo.Order;
 
+import java.util.List;
+
 public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     @Override
@@ -15,4 +17,11 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     }
 
+    @Override
+    public List<Order> queryOrder() {
+
+        String sql = "select * from t_order";
+
+        return queryForList(Order.class,sql);
+    }
 }

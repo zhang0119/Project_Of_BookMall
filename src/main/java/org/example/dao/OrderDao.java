@@ -2,6 +2,8 @@ package org.example.dao;
 
 import org.example.pojo.Order;
 
+import java.util.List;
+
 public interface OrderDao {
 
     /**
@@ -11,9 +13,6 @@ public interface OrderDao {
      */
     int saveOrder(Order order);
 
-    /**
-     * 查询数据库里面所有的订单
-     * @return 返回所有的订单
-     */
-    /*Map<Integer,Order> queryOrder();*/
+    List<Order> queryOrder();
+
 }

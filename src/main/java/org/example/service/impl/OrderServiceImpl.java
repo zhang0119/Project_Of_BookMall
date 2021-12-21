@@ -10,6 +10,7 @@ import org.example.pojo.*;
 import org.example.service.OrderService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
@@ -18,6 +19,12 @@ public class OrderServiceImpl implements OrderService {
     private OrderItemDao orderItemDao = new OrderItemDaoImpl();
     private BookDao bookDao = new BookDaoImpl();
 
+
+    @Override
+    public List<Order> queryOrder() {
+        return orderDao.queryOrder();
+
+    }
 
     @Override
     public String createOrder(Cart cart, Integer userId) {
