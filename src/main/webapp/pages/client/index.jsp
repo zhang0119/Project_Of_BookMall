@@ -20,8 +20,9 @@
                 location.href="http://localhost:8080/book/client/bookServlet?action=page&pageNo="+pageNo;
             });
 
+
             //当用户点击 "加入购物车"按钮后，向clientBookServlet发起请求
-            $(".addCart").click(function(){
+            /*$(".addCart").click(function(){
                 //alert("hello,js!");
                 //这里我们要拿到图书的id,这里我们要自定义bookId属性，通过这个属性拿到图书的id
                 //使用attr()来获得id的值
@@ -30,6 +31,26 @@
                 //(bookId);
 
                 location.href="client/bookServlet?action=addItem&id="+bookId;
+            })*/
+
+
+            //当用户点击 “加入购物车”后,这里我们使用ajax技术
+            //这里我们需要查询加入购物车的商品件数，刚刚将什么图书放入购物车
+            $(".addCart").click(function(){
+                //这里我们获取加入购物车的图书id
+                let bookId = $(this).attr("bookId");
+                $.getJSON(
+                    "client/bookServlet",
+                    {
+                        action:"addCart",
+                        bookId:bookId
+                    },
+                    function(data){
+                        $("#cart_totalCount").html("您的购物车中有<span style='color:red'>"+data.totalCount+"</span>商品ajax");
+                        $("#last_product").html("您刚刚将<span style='color:red'>"+data.last_bookName+"<span>加入到购物车中ajax");
+
+                    }
+                )
             })
         })
     </script>
@@ -52,6 +73,7 @@
         </c:if>
 
         <c:if test="${not empty sessionScope.user.username}">
+            <span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临书城</span>
             <a href="pages/cart/cart.jsp">购物车</a>
             <a href="pages/manager/manager.jsp">后台管理</a>
             <a href="userServlet?action=logout">注销</a>&nbsp;&nbsp;
@@ -76,14 +98,27 @@
 
         <%--以下代码只有我们登录成功才会显示，这里做个判断--%>
         <c:if test="${not empty sessionScope.user}">
+
+            <%--如果购物车为空，以下的代码也不显示，即使我们已完成登录--%>
+            <c:if test="${empty sessionScope.cart.items}">
+                <div style="text-align: center">
+                        <%--<span>您的购物车中有3件商品</span>--%>
+                    <span id="cart_totalCount">您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
+                    <div id="last_product">
+                            <%--您刚刚将<span style="color: red">时间简史</span>加入到了购物车中--%>
+                        您刚刚将<span style="color: red">${sessionScope.last_bookName}</span>加入到了购物车中
+                    </div>
+                </div>
+            </c:if>
+
             <%--如果购物车为空，以下的代码也不显示，即使我们已完成登录--%>
             <c:if test="${not empty sessionScope.cart.items}">
                 <div style="text-align: center">
                         <%--<span>您的购物车中有3件商品</span>--%>
-                    <span>您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
-                    <div>
+                    <span id="cart_totalCount">您的购物车中有<span style="color: red">${sessionScope.cart.totalCount}</span>件商品</span>
+                    <div id="last_product">
                             <%--您刚刚将<span style="color: red">时间简史</span>加入到了购物车中--%>
-                        您刚刚将<span style="color: red">${sessionScope.bookName}</span>加入到了购物车中
+                        您刚刚将<span style="color: red">${sessionScope.last_bookName}</span>加入到了购物车中
                     </div>
                 </div>
             </c:if>

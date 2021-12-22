@@ -1,5 +1,7 @@
 package org.example.web;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.pojo.Book;
 import org.example.pojo.Cart;
 import org.example.pojo.CartItem;
@@ -12,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientBookServlet extends BaseServlet {
 
@@ -22,6 +26,48 @@ public class ClientBookServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
+    }
+
+    /**
+     * 这里我编写一个servlet专门处理"加入购物车"的业务方法
+     */
+    protected void addCart(HttpServletRequest req,HttpServletResponse resp) throws IOException {
+        //设置字符集
+        resp.setContentType("text/html;charset=utf-8");
+
+        //接受从前端传入的bookId
+        int bookId = WebUtils.parseInt(req.getParameter("bookId"), 1);
+        //查询这本书的所有信息
+        Book book = bookService.queryBookById(bookId);
+        //这里我想需要判断购物车是否为空
+        //如果为空，我们就new 一个购物车，不为空，我们就把cartItem放入就行
+        CartItem cartItem = new CartItem(book.getId(),book.getName(),1,book.getPrice(),book.getPrice());
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        if(cart==null){
+            cart = new Cart();
+            req.getSession().setAttribute("cart",cart);
+        }
+        cart.addItem(cartItem);
+
+        //把最后一本书放回session域对象中
+        req.getSession().setAttribute("last_bookName",cartItem.getName());
+
+        //将last_bookName放入到session域对象中
+        //req.getSession().setAttribute("lastBookName",book.getName());
+        System.out.println(book.getName());
+        System.out.println("------------------------------------------------");
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("totalCount",cart.getTotalCount());
+        result.put("last_bookName",cartItem.getName());
+
+        //新建gson对象
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        String jsonObj = gson.toJson(result);
+        System.out.println(jsonObj);
+        resp.getWriter().write(jsonObj);
+
     }
 
     /**

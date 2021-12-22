@@ -17,6 +17,35 @@
 					this.src="http://localhost:8080/book/kaptcha.jpg";
 				});
 
+				//这里我们用ajax
+				$("#username").blur(function(){
+					//获取用户输入的名字
+					let username = this.value;
+					//判断用户名不能为空
+					if(username === ""){
+						$(".errorMsg").html("用户名不能为空!");
+						return false;
+					}
+					//发送 ajax请求验证
+					$.getJSON(
+							"userServlet",
+							{
+								action:"existsUsername",
+								"username":username
+							},
+							function(data){ //这里的data是从后端传过来的
+								//我们在这里判断data里面的值
+								if(data.result===0){
+									//代表用户名不合法
+									$(".errorMsg").text("用户名不合法！ajax实现的");
+								}else if(data.result===1){
+									$(".errorMsg").text("用户名合法！ajax实现的");
+								}
+							}
+					)
+
+				});
+
 
 				//给注册绑定单击事件
 				$("#sub_btn").click(function(){

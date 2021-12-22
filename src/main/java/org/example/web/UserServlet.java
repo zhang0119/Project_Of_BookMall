@@ -1,5 +1,7 @@
 package org.example.web;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.pojo.User;
 import org.example.service.UserService;
 import org.example.service.impl.UserServiceImpl;
@@ -9,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -21,7 +25,32 @@ public class UserServlet extends BaseServlet {
         doPost(req,resp);
     }
 
+    protected void existsUsername(HttpServletRequest req,HttpServletResponse resp){
+        //用户会传过来username,这里我们负责判断是否合法
+        String username = req.getParameter("username");
+        //调用userService.existsUsername()方法判断用户名是否存在
+        boolean result = userService.existsUsername(username);
+        //创建一个Map集合
+        Map<String, Integer> number = new HashMap<>();
+        if(result){
+            //用户名存在，即不合法
+            number.put("result",0);
+        }else{
+            //用户名不存在，用户名合法
+            number.put("result",1);
+        }
 
+        //创建一个gson对象
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonObj = gson.toJson(number);
+        //将这个json返回到前端
+        try {
+            resp.getWriter().write(jsonObj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /*
        注销用户的servlet

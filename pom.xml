@@ -17,6 +17,13 @@
 
     <dependencies>
 
+        <!--gson的依赖-->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
 
         <!--谷歌验证码的依赖-->
         <dependency>
